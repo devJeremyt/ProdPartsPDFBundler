@@ -21,7 +21,7 @@ public class CSVReader {
 
 	public static final ArrayList<Part> readPartsList(File file){
 		if (file == null) {
-			throw new IllegalArgumentException(ExceptionMessages.FILLCANNOTBENULL);
+			throw new IllegalArgumentException(ExceptionMessages.FILECANNOTBENULL);
 		}
 		ArrayList<Part> list = new ArrayList<Part>();
 		
