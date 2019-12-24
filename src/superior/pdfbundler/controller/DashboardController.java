@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -15,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import superior.pdfbundler.datatier.CSVReader;
 import superior.pdfbundler.model.DirectoryScanner;
+import superior.pdfbundler.model.Merger;
 import superior.pdfbundler.model.Part;
 import superior.pdfbundler.resources.ExceptionMessages;
 
@@ -47,7 +49,7 @@ public class DashboardController {
     
     private DirectoryScanner dirscan;
     private File csvFile;
-    private static final String SEARCHDIR = "C:\\";
+    private static final String SEARCHDIR = new File(DashboardController.class.getName() + ".class").getAbsoluteFile().getParent();
     private ArrayList<Part> partsList;
     
 	
@@ -55,11 +57,14 @@ public class DashboardController {
      * Sets the File that the parts are in and updates csv file location textbox
      */
 	public void importCSV() {
-		FileChooser chooser = new FileChooser();	
+		System.out.println(DashboardController.SEARCHDIR);
+		FileChooser chooser = new FileChooser();
+		chooser.getExtensionFilters().add(new ExtensionFilter("CSV", "*.csv"));
 		this.csvFile = chooser.showOpenDialog(this.csvFileLocation.getScene().getWindow());
 		this.csvFileLocation.setText(this.csvFile.getAbsolutePath());
 		this.partsList = CSVReader.readPartsList(this.csvFile);
 		this.dirscan = new DirectoryScanner(new File(SEARCHDIR), this.partsList);
+		
 		this.dirscan.searchForParts();
 		this.populatePartsTable();
 		
@@ -72,9 +77,16 @@ public class DashboardController {
 	}
 
 	public void exportPDF() {
-		this.csvFile = new File(this.csvFileLocation.getText());
+		FileChooser chooser = new FileChooser();
+		chooser.getExtensionFilters().add(new ExtensionFilter("PDF", "*.pdf"));
+		chooser.setInitialFileName("SO0.pdf");
+		chooser.setTitle("Save PDF Export");
+		File file = chooser.showSaveDialog(this.exportButton.getScene().getWindow());
+		
+		System.out.println(file.getAbsolutePath());
 		if (this.csvFile.exists()) {
-			System.out.println("Do something");
+			Merger merger = new Merger(file);
+			merger.mergePartsPDFs(file, this.getPartsLocations());
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText(ExceptionMessages.CSVREADFAILED);
@@ -83,5 +95,14 @@ public class DashboardController {
 			alert.showAndWait();
 		}
 		
+	}
+	
+	private ArrayList<String> getPartsLocations() {
+		ArrayList<String> locations = new ArrayList<String>();
+		for (Part part : this.partsList) {
+			locations.addAll(part.getFileLocations());
+		}
+		
+		return locations;
 	}
 }

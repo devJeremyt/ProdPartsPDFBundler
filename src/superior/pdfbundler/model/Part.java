@@ -1,5 +1,7 @@
 package superior.pdfbundler.model;
 
+import java.util.ArrayList;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,7 +18,7 @@ import superior.pdfbundler.resources.ExceptionMessages;
  */
 public class Part {
 	
-	private String fileLocation;
+	private ArrayList<String> fileLocations;
 	private StringProperty name;
 	private BooleanProperty found;
 	
@@ -28,7 +30,7 @@ public class Part {
 		this.name = new SimpleStringProperty(name);
 		this.found = new SimpleBooleanProperty(false);
 		
-		this.fileLocation = null;
+		this.fileLocations = new ArrayList<String>();
 	}
 
 	/**
@@ -36,17 +38,13 @@ public class Part {
 	 * 
 	 * @return the location of the file for the part
 	 */
-	public String getFileLocation() {
-		return this.fileLocation;
+	public ArrayList<String> getFileLocations() {
+		return this.fileLocations;
 	}
 
-	/**
-	 * Sets the file location to the string provided
-	 * 
-	 * @param fileLocation the absolute location of the file
-	 */
-	public void setFileLocation(String fileLocation) {
-		this.fileLocation = fileLocation;
+
+	public void addFileLocation(String fileLocation) {
+		this.fileLocations.add(fileLocation);
 	}
 
 	/**
@@ -83,6 +81,7 @@ public class Part {
 	public String getName() {
 		return this.name.get();
 	}
+	
 	
 	public String toString() {
 		return this.name.get();

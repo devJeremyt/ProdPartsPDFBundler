@@ -28,18 +28,18 @@ public class Merger {
 	 * @param file the file that the pdfs will be saved to
 	 */
 	public Merger(File file) {
-		if (file == null || !file.exists()) {
+		if (file == null) {
 			throw new IllegalArgumentException(ExceptionMessages.FILECANNOTBENULL);
 		}
 		this.merger = new PDFMergerUtility();
-		this.newPDF = new PDDocument();
-		try {
-			this.newPDF.save(file);
-			this.newPDF.close();
-		} catch (IOException e) {
-			System.err.println(ExceptionMessages.PDFNOTCREATED);
-			e.printStackTrace();
-		}
+//		this.newPDF = new PDDocument();
+//		try {
+//			this.newPDF.save(file);
+//			this.newPDF.close();
+//		} catch (IOException e) {
+//			System.err.println(ExceptionMessages.PDFNOTCREATED);
+//			e.printStackTrace();
+//		}
 	}
 	
 	
@@ -53,24 +53,28 @@ public class Merger {
 	 * @param pdfLocations the list of file locations for the pdfs
 	 */
 	public void mergePartsPDFs(File file, ArrayList<String> pdfLocations) {
-		if (file == null || !file.exists()) {
+		if (file == null) {
 			throw new IllegalArgumentException(ExceptionMessages.FILECANNOTBENULL);
 		}
 		if (pdfLocations == null) {
 			throw new IllegalArgumentException(ExceptionMessages.PDFLOCATIONSNULL);
 		}
 		try {
+			PDDocument doc = new PDDocument();
+			doc.save(file);
 			for (String current : pdfLocations) {
 				if (current != null) {
 					File newFile = new File(current);
 					this.merger.addSource(newFile);
+					System.out.println("Added" + newFile);
 				}
 			}
-			
+		
 			this.merger.setDestinationFileName(file.getAbsolutePath());
 			this.merger.mergeDocuments(null);
 			
-			this.newPDF.close();
+			doc.close();
+			
 		} catch (FileNotFoundException fnfe) {
 			System.err.println(ExceptionMessages.FILENOTFOUND);
 		} catch (IOException ioe) {

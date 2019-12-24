@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import superior.pdfbundler.resources.ExceptionMessages;
 
 /**
@@ -26,13 +28,18 @@ public class DirectoryScanner {
 	 * @param listOfParts
 	 */
 	public DirectoryScanner(File directory, ArrayList<Part> listOfParts) {
-		if (directory == null || !directory.exists()) {
+		if (directory == null) {
 			throw new IllegalArgumentException(ExceptionMessages.DIRECTORYNOTFOUND);
 		}
 		if (listOfParts.isEmpty()) {
 			throw new IllegalArgumentException(ExceptionMessages.LISTCONTAINSNOPARTS);
 		}
 		this.dir = directory;
+		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setContentText(this.dir.getAbsolutePath());
+		alert.showAndWait();
+		
 		this.partsList = listOfParts;
 		this.queue = new LinkedList<File>();
 	}
@@ -47,8 +54,8 @@ public class DirectoryScanner {
 				}
 			} else {
 				for (Part part : this.partsList) {
-					if (current.getName().contains(part.getName())) {
-						part.setFileLocation(current.getAbsolutePath());
+					if (current.getName().toLowerCase().contains(part.getName().toLowerCase())) {
+						part.addFileLocation(current.getAbsolutePath());
 						part.setFound(true);
 					}
 				}	
