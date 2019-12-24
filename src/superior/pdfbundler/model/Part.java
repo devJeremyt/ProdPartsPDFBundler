@@ -12,7 +12,6 @@ import superior.pdfbundler.resources.ExceptionMessages;
  * 
  * @author Jeremy Trimble
  * @version 1.0
- * @Date 12/22/2019
  *
  */
 public class Part {
@@ -57,7 +56,7 @@ public class Part {
 	 * @return true if the file was found, else false
 	 */
 	public String getFound() {
-		if(this.found.get()==true) {
+		if (this.found.get()) {
 			return "Found";
 		} else {
 			return "Not Found";

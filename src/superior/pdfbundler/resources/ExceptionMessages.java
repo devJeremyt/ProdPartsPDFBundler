@@ -5,7 +5,6 @@ package superior.pdfbundler.resources;
  * 
  * @author Jeremy Trimble
  * @version 1.0
- * @date 12/14/2019
  *
  */
 public class ExceptionMessages {

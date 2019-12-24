@@ -15,7 +15,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import superior.pdfbundler.datatier.CSVReader;
 import superior.pdfbundler.model.DirectoryScanner;
-import superior.pdfbundler.model.Manager;
 import superior.pdfbundler.model.Part;
 import superior.pdfbundler.resources.ExceptionMessages;
 
@@ -24,7 +23,6 @@ import superior.pdfbundler.resources.ExceptionMessages;
  * 
  * @author Jeremy Trimble
  * @version 1.0
- * @date 12/14/2019
  *
  */
 public class DashboardController {
@@ -47,16 +45,11 @@ public class DashboardController {
     @FXML
     private Button exportButton;
     
-    private Manager manager;
     private DirectoryScanner dirscan;
     private File csvFile;
-    private static final String searchDir = "C:\\";
+    private static final String SEARCHDIR = "C:\\";
     private ArrayList<Part> partsList;
     
-    
-    public void initialze() {
-    	this.manager = new Manager();
-    }
 	
     /**
      * Sets the File that the parts are in and updates csv file location textbox
@@ -66,7 +59,7 @@ public class DashboardController {
 		this.csvFile = chooser.showOpenDialog(this.csvFileLocation.getScene().getWindow());
 		this.csvFileLocation.setText(this.csvFile.getAbsolutePath());
 		this.partsList = CSVReader.readPartsList(this.csvFile);
-		this.dirscan = new DirectoryScanner(new File(searchDir), partsList);
+		this.dirscan = new DirectoryScanner(new File(SEARCHDIR), this.partsList);
 		this.dirscan.searchForParts();
 		this.populatePartsTable();
 		
@@ -80,8 +73,8 @@ public class DashboardController {
 
 	public void exportPDF() {
 		this.csvFile = new File(this.csvFileLocation.getText());
-		if(this.csvFile.exists()) {
-			
+		if (this.csvFile.exists()) {
+			System.out.println("Do something");
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText(ExceptionMessages.CSVREADFAILED);

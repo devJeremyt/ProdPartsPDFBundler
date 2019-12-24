@@ -1,9 +1,7 @@
 package superior.pdfbundler.datatier;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import superior.pdfbundler.model.Part;
@@ -14,18 +12,17 @@ import superior.pdfbundler.resources.ExceptionMessages;
  * 
  * @author Jeremy Trimble
  * @version 1.0
- * @date 12/14/2019
  *
  */
 public class CSVReader {
 
-	public static final ArrayList<Part> readPartsList(File file){
+	public static final ArrayList<Part> readPartsList(File file) {
 		if (file == null) {
 			throw new IllegalArgumentException(ExceptionMessages.FILECANNOTBENULL);
 		}
 		ArrayList<Part> list = new ArrayList<Part>();
 		
-		try (Scanner scanner = new Scanner(file)){
+		try (Scanner scanner = new Scanner(file)) {
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				String[] fields = line.split(",");

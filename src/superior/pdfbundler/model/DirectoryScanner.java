@@ -12,7 +12,6 @@ import superior.pdfbundler.resources.ExceptionMessages;
  * 
  * @author Jeremy Trimble
  * @version 1.0
- * @date 12/14/2019
  *
  */
 public class DirectoryScanner {
@@ -38,17 +37,17 @@ public class DirectoryScanner {
 		this.queue = new LinkedList<File>();
 	}
 
-	public void searchForParts(){
+	public void searchForParts() {
 		this.queue.add(this.dir);
-		while(!this.queue.isEmpty() && this.queue.peek() != null) {
+		while (!this.queue.isEmpty() && this.queue.peek() != null) {
 			File current = this.queue.remove();
-			if(current.isDirectory() && current.listFiles() != null) {
-				for(File file : current.listFiles()) {
+			if (current.isDirectory() && current.listFiles() != null) {
+				for (File file : current.listFiles()) {
 					this.queue.add(file);
 				}
 			} else {
-				for(Part part : this.partsList) {
-					if(current.getName().contains(part.getName())) {
+				for (Part part : this.partsList) {
+					if (current.getName().contains(part.getName())) {
 						part.setFileLocation(current.getAbsolutePath());
 						part.setFound(true);
 					}
