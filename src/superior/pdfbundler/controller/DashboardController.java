@@ -31,6 +31,9 @@ public class DashboardController {
 	
     @FXML
     private Button importButton;
+    
+    @FXML
+    private Button refreshButton;
 
     @FXML
     private TableView<Part> partsTable;
@@ -68,12 +71,33 @@ public class DashboardController {
 		this.dirscan.searchForParts();
 		this.populatePartsTable();
 		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setContentText("The search has completed.");
+		alert.setHeaderText("Search Complete");
+		alert.setTitle("Search Complete");
+		alert.showAndWait();
 	}
 	
 	private void populatePartsTable() {
 		this.partNumberColumn.setCellValueFactory(new PropertyValueFactory<Part, String>("name"));
 		this.drawingFoundColumn.setCellValueFactory(new PropertyValueFactory<Part, String>("found"));
 		this.partsTable.setItems(FXCollections.observableArrayList(this.partsList));
+	}
+	
+	
+	public void refreshCSV() {
+		this.csvFile = new File(this.csvFileLocation.getText());
+		this.partsList = CSVReader.readPartsList(this.csvFile);
+		this.dirscan = new DirectoryScanner(new File(SEARCHDIR), this.partsList);
+		this.dirscan.searchForParts();
+		this.populatePartsTable();
+		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setContentText("The search has completed.");
+		alert.setHeaderText("Search Complete");
+		alert.setTitle("Search Complete");
+		alert.showAndWait();
+			
 	}
 
 	public void exportPDF() {
@@ -87,6 +111,11 @@ public class DashboardController {
 		if (this.csvFile.exists()) {
 			Merger merger = new Merger(file);
 			merger.mergePartsPDFs(file, this.getPartsLocations());
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setContentText("The pdf has been created.");
+			alert.setHeaderText("PDF Created");
+			alert.setTitle("PDF Created");
+			alert.showAndWait();
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText(ExceptionMessages.CSVREADFAILED);
@@ -105,4 +134,5 @@ public class DashboardController {
 		
 		return locations;
 	}
+	
 }

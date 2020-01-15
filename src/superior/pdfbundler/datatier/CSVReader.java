@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import superior.pdfbundler.model.Part;
 import superior.pdfbundler.resources.ExceptionMessages;
 
@@ -23,15 +25,23 @@ public class CSVReader {
 		ArrayList<Part> list = new ArrayList<Part>();
 		
 		try (Scanner scanner = new Scanner(file)) {
+			scanner.nextLine();
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				String[] fields = line.split(",");
-				String name = fields[0];
+				String name = fields[2];
 				Part part = new Part(name);
-				list.add(part);
+				if (!list.contains(part)) {
+					list.add(part);
+				}
 			}
 		} catch (Exception e) {
 			System.err.println(ExceptionMessages.CSVREADFAILED);
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setContentText("There isn't a CSV by the name of location provided. Check the spelling of the file location of the CSV being uploaded.");
+			alert.setHeaderText("Invalid CSV");
+			alert.setTitle("Invalid CSV");
+			alert.showAndWait();
 		}
 		
 		return list;

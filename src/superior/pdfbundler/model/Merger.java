@@ -19,7 +19,7 @@ import superior.pdfbundler.resources.ExceptionMessages;
 public class Merger {
 	
 	private PDFMergerUtility merger;
-	private PDDocument newPDF;
+	//private PDDocument newPDF;
 	
 	
 	/**

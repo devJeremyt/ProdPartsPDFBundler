@@ -9,7 +9,7 @@
 
 <AnchorPane minHeight="475.0" minWidth="850.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="superior.pdfbundler.controller.DashboardController">
    <children>
-      <Button fx:id="importButton" layoutX="90.0" layoutY="45.0" mnemonicParsing="false" onAction="#importCSV" text="Import">
+      <Button fx:id="importButton" layoutX="211.0" layoutY="35.0" mnemonicParsing="false" onAction="#importCSV" text="Import">
          <font>
             <Font size="16.0" />
          </font>
@@ -20,12 +20,17 @@
             <TableColumn fx:id="drawingFoundColumn" minWidth="180.0" prefWidth="232.0" text="Drawing Found" />
          </columns>
       </TableView>
-      <TextField fx:id="csvFileLocation" layoutX="211.0" layoutY="45.0" prefHeight="37.0" prefWidth="448.0">
+      <TextField fx:id="csvFileLocation" layoutX="211.0" layoutY="85.0" prefHeight="37.0" prefWidth="448.0">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <Button fx:id="exportButton" layoutX="693.0" layoutY="45.0" mnemonicParsing="false" onAction="#exportPDF" text="Export to PDF">
+      <Button fx:id="exportButton" layoutX="540.0" layoutY="35.0" mnemonicParsing="false" onAction="#exportPDF" text="Export to PDF">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="refreshButton" layoutX="400.0" layoutY="35.0" mnemonicParsing="false" onAction="#refreshCSV" text="Refresh">
          <font>
             <Font size="16.0" />
          </font>

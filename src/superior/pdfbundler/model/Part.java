@@ -82,8 +82,19 @@ public class Part {
 		return this.name.get();
 	}
 	
-	
+	@Override
 	public String toString() {
 		return this.name.get();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Part cast = (Part) obj;
+		if (cast.toString().equals(this.toString())) {
+			return true;
+		}
+		
+		return false;
+	}
+
 }

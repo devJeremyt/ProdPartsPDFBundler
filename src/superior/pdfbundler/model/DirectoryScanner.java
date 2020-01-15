@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import superior.pdfbundler.resources.ExceptionMessages;
 
 /**
@@ -36,10 +33,6 @@ public class DirectoryScanner {
 		}
 		this.dir = directory;
 		
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setContentText(this.dir.getAbsolutePath());
-		alert.showAndWait();
-		
 		this.partsList = listOfParts;
 		this.queue = new LinkedList<File>();
 	}
@@ -54,6 +47,7 @@ public class DirectoryScanner {
 				}
 			} else {
 				for (Part part : this.partsList) {
+					System.out.println(part.getName() + ":" + current.getName());
 					if (current.getName().toLowerCase().contains(part.getName().toLowerCase())) {
 						part.addFileLocation(current.getAbsolutePath());
 						part.setFound(true);
@@ -61,5 +55,9 @@ public class DirectoryScanner {
 				}	
 			}
 		}	
+	}
+	
+	private void createRBTree() {
+		
 	}
 }
