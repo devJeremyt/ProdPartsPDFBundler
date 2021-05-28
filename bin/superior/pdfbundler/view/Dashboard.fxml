@@ -3,34 +3,24 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane minHeight="475.0" minWidth="850.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="superior.pdfbundler.controller.DashboardController">
    <children>
-      <Button fx:id="importButton" layoutX="211.0" layoutY="35.0" mnemonicParsing="false" onAction="#importCSV" text="Import">
+      <Button fx:id="importButton" layoutX="214.0" layoutY="72.0" mnemonicParsing="false" onAction="#importCSV" text="Import">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
       <TableView fx:id="partsTable" layoutX="160.0" layoutY="132.0" minWidth="550.0" prefHeight="279.0" prefWidth="550.0">
          <columns>
-            <TableColumn fx:id="partNumberColumn" minWidth="275.0" prefWidth="318.0" text="Part Number" />
-            <TableColumn fx:id="drawingFoundColumn" minWidth="180.0" prefWidth="232.0" text="Drawing Found" />
+            <TableColumn fx:id="soColumn" prefWidth="186.0" text="Sales Order" />
+            <TableColumn fx:id="partNumberColumn" minWidth="200.0" prefWidth="207.0" text="Part Number" />
+            <TableColumn fx:id="drawingFoundColumn" minWidth="147.0" prefWidth="155.0" text="Drawing Found" />
          </columns>
       </TableView>
-      <TextField fx:id="csvFileLocation" layoutX="211.0" layoutY="85.0" prefHeight="37.0" prefWidth="448.0">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
-      <Button fx:id="exportButton" layoutX="540.0" layoutY="35.0" mnemonicParsing="false" onAction="#exportPDF" text="Export to PDF">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="refreshButton" layoutX="400.0" layoutY="35.0" mnemonicParsing="false" onAction="#refreshCSV" text="Refresh">
+      <Button fx:id="exportButton" layoutX="527.0" layoutY="72.0" mnemonicParsing="false" onAction="#exportPDF" text="Export to PDF">
          <font>
             <Font size="16.0" />
          </font>

@@ -8,6 +8,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
@@ -18,8 +19,7 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Superior PDF Bundler");
-			primaryStage.show();
-						
+			primaryStage.show();						
 		} catch (Exception e) {
 			e.printStackTrace();
 			Alert alert = new Alert(AlertType.ERROR);
@@ -33,3 +33,5 @@ public class Main extends Application {
 		launch(args);
 	}
 }
+
+

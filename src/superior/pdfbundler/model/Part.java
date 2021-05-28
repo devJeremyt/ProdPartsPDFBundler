@@ -21,14 +21,16 @@ public class Part {
 	private ArrayList<String> fileLocations;
 	private StringProperty name;
 	private BooleanProperty found;
+	private StringProperty orderNumber;
 	
-	public Part(String name) {
+	public Part(String name, String orderNumber) {
 		if (name == null) {
 			throw  new IllegalArgumentException(ExceptionMessages.NAMECANNOTBENULL);
 		}
 		
 		this.name = new SimpleStringProperty(name);
 		this.found = new SimpleBooleanProperty(false);
+		this.orderNumber = new SimpleStringProperty(orderNumber);
 		
 		this.fileLocations = new ArrayList<String>();
 	}
@@ -46,6 +48,10 @@ public class Part {
 	public void addFileLocation(String fileLocation) {
 		this.fileLocations.add(fileLocation);
 	}
+	
+	public Boolean addFileLocations(ArrayList<String> locations) {
+		return this.fileLocations.addAll(locations);
+	}
 
 	/**
 	 * Return if the file is found or not
@@ -60,6 +66,10 @@ public class Part {
 			return "Not Found";
 		}
 		
+	}
+	
+	public Boolean getFoundBool() {
+		return this.found.get();
 	}
 
 	
@@ -82,10 +92,15 @@ public class Part {
 		return this.name.get();
 	}
 	
+	public String getOrderNumber() {
+		return this.orderNumber.get();
+	}
+	
 	@Override
 	public String toString() {
 		return this.name.get();
 	}
+
 	
 	@Override
 	public boolean equals(Object obj) {

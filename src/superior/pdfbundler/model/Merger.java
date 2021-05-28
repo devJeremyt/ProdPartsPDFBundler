@@ -25,12 +25,9 @@ public class Merger {
 	/**
 	 * The Merger Object
 	 * 
-	 * @param file the file that the pdfs will be saved to
 	 */
-	public Merger(File file) {
-		if (file == null) {
-			throw new IllegalArgumentException(ExceptionMessages.FILECANNOTBENULL);
-		}
+	public Merger() {
+
 		this.merger = new PDFMergerUtility();
 //		this.newPDF = new PDDocument();
 //		try {
@@ -65,8 +62,9 @@ public class Merger {
 			for (String current : pdfLocations) {
 				if (current != null) {
 					File newFile = new File(current);
-					this.merger.addSource(newFile);
-					System.out.println("Added" + newFile);
+					if (newFile.getName().endsWith(".pdf")) {
+						this.merger.addSource(newFile);
+					}
 				}
 			}
 		
